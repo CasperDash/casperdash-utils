@@ -13,25 +13,23 @@
   "unpkg": "dist/bundle.min.js",
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "tsc && tsc-alias",
-    "postbuild": "npm run rollup && npm run prepare-packages && npm run prepare-dist",
-    "rollup": "rollup -c tools/rollup.config.js",
-    "prepare-packages": "node tools/prepare-package.js",
-    "prepare-dist": "node tools/prepare-dist.js",
-    "prepare": "npm run build",
+    "build": "tsc  --downlevelIteration",
+    "build-all": "yarn clean && yarn build && yarn esbuild-node",
+    "esbuild-node": "esbuild src/index.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/cli.js",
+    "deploy": "yarn build-all && npm publish",
     "clean": "rimraf -r dist",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djhahe/casperdash-utils.git"
+    "url": "git+https://github.com/CasperDash/casperdash-utils.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djhahe/casperdash-utils/issues"
+    "url": "https://github.com/CasperDash/casperdash-utils/issues"
   },
-  "homepage": "https://github.com/djhahe/casperdash-utils",
+  "homepage": "https://github.com/CasperDash/casperdash-utils",
   "dependencies": {
     "@ethersproject/bytes": "^5.6.1",
     "blakejs": "^1.2.1",
@@ -40,11 +38,10 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@types/jest": "^28.1.6",
+    "esbuild": "^0.15.0",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
     "rimraf": "^3.0.2",
-    "rollup": "^2.56.3",
-    "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^28.0.7",
     "tsc-alias": "^1.3.9",
     "typescript": "^4.4.2"

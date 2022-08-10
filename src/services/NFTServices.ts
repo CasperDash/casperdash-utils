@@ -254,5 +254,3 @@ export default class NFTServices {
     return detail;
   };
 }
-
-module.exports = NFTServices;

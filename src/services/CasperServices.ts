@@ -125,7 +125,7 @@ export default class CasperServices {
             status:
               !execution_results || !execution_results.length
                 ? 'pending'
-                : execution_results.some((rs) => rs.result.Failure)
+                : execution_results.some((rs: any) => rs.result.Failure)
                 ? 'failed'
                 : 'completed',
           };

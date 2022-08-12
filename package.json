@@ -1,21 +1,17 @@
 {
   "name": "casperdash-utils",
-  "version": "1.0.0",
+  "version": "1.0.10",
   "description": "Casperdash utils",
   "private": false,
   "keywords": [
     "typescript"
   ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
+  "main": "dist/lib.node.js",
   "types": "dist/index.d.ts",
-  "jsdelivr": "dist/bundle.min.js",
-  "unpkg": "dist/bundle.min.js",
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "tsc  --downlevelIteration",
-    "build-all": "yarn clean && yarn build && yarn esbuild-node",
-    "esbuild-node": "esbuild src/index.ts --bundle --platform=node --minify --sourcemap=external --outfile=dist/esbuild/cli.js",
+    "build": "webpack --config webpack.config.js",
+    "build-all": "yarn clean && yarn build",
     "deploy": "yarn build-all && npm publish",
     "clean": "rimraf -r dist",
     "test": "jest"
@@ -24,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/CasperDash/casperdash-utils.git"
   },
-  "author": "",
+  "author": "CasperDash<hello@casperdash.io>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CasperDash/casperdash-utils/issues"
@@ -33,18 +29,23 @@
   "dependencies": {
     "@ethersproject/bytes": "^5.6.1",
     "blakejs": "^1.2.1",
-    "casper-js-sdk": "^2.9.1"
+    "casper-js-sdk": "^2.9.1",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@types/jest": "^28.1.6",
+    "copy-webpack-plugin": "^11.0.0",
     "esbuild": "^0.15.0",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
+    "ts-loader": "^9.3.1",
     "tsc-alias": "^1.3.9",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "webpack-cli": "^4.10.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"

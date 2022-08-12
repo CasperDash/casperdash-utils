@@ -3,25 +3,25 @@ import NFTServices from './NFTServices';
 import { NFTStandard, NFTMetadataKind } from '../types';
 
 const NFT_CONFIG = [
+  // {
+  //   contractHash:
+  //     'hash-1ff9e5f82eb5b35a7af92f668774156162d54a890ee2ad246e1025433cc6c756',
+  //   name: 'Dragon NFT',
+  //   symbol: 'DRAG',
+  //   creator:
+  //     '0202423dfbce6d36354b3978907d4e1db377511f8fece4e5b32d9adbdb903c76914d',
+  //   cep: NFTStandard.CEP47,
+  // },
   {
     contractHash:
-      'hash-1ff9e5f82eb5b35a7af92f668774156162d54a890ee2ad246e1025433cc6c756',
+      'hash-e1ae99ce00249f7d5977ffa315f8c4547c34fe4f76b21fd7fc452b4f02c0aa68',
     name: 'Dragon NFT',
     symbol: 'DRAG',
     creator:
-      '0202423dfbce6d36354b3978907d4e1db377511f8fece4e5b32d9adbdb903c76914d',
-    cep: NFTStandard.CEP47,
-  },
-  {
-    contractHash:
-      'hash-adcb6ca823f085bf9eb819d9a6187dba0686697336a216f235ce88b2fdf0d314',
-    name: 'Dragon NFT',
-    symbol: 'DRAG',
-    creator:
-      '0202423dfbce6d36354b3978907d4e1db377511f8fece4e5b32d9adbdb903c76914d',
+      '0187e7fdf8346cc5bd7f43a93a5654ea946e7bdc986502a6675d4573b26322e1ba',
     cep: NFTStandard.CEP78,
     action: 'Hatch',
-    metadataKind: NFTMetadataKind.NFT721,
+    metadataKind: NFTMetadataKind.Raw,
   },
 ];
 
@@ -49,5 +49,5 @@ test('Should call CasperServices', async () => {
       }
     }),
   );
-  console.info(NFTInfo.flat());
+  console.info(NFTInfo);
 });

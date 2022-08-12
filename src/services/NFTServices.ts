@@ -233,16 +233,18 @@ export default class NFTServices {
   /* Getting the contract info. */
   getContractInfo = async () => {
     let result: any = {};
-    this.NFTInfoNamedKeys.forEach(async ({ name, key }) => {
-      let value;
-      try {
-        value = await this.contractClient.queryContractData([key]);
-      } catch (error) {
-        console.error(error);
-        value = null;
-      }
-      result[name] = value;
-    });
+    await Promise.all(
+      this.NFTInfoNamedKeys.map(async ({ name, key }) => {
+        let value;
+        try {
+          value = await this.contractClient.queryContractData([key]);
+        } catch (error) {
+          console.error(error);
+          value = null;
+        }
+        result[name] = value;
+      }),
+    );
 
     return result;
   };

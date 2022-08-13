@@ -59,7 +59,7 @@ const getNamedKeyConfig = (
       originNamedKey: 'ownerAccountHash',
       massageFn: (value: CLAccountHash) => {
         const hex = Buffer.from(value.data).toString('hex');
-        return hex;
+        return `account-hash-${hex}`;
       },
     },
   ];

@@ -1,4 +1,10 @@
-import { CLPublicKey, CLValue, CLValueBuilder, Contracts } from 'casper-js-sdk';
+import {
+  CLAccountHash,
+  CLPublicKey,
+  CLValue,
+  CLValueBuilder,
+  Contracts,
+} from 'casper-js-sdk';
 import { keyAndValueToHex } from '../utilities/valueBuilder';
 import {
   INFTConfig,
@@ -37,7 +43,7 @@ const getMetadataNamedKey = (cep: string, metadataKind?: NFTMetadataKind) => {
 };
 
 const getNamedKeyConfig = (
-  cep: string = 'cep47',
+  cep: NFTStandard,
   tokenId: string,
   metadataKind?: NFTMetadataKind,
 ) => {
@@ -46,6 +52,15 @@ const getNamedKeyConfig = (
       namedKey: getMetadataNamedKey(cep, metadataKind),
       key: tokenId,
       originNamedKey: METADATA_NAMED_KEY,
+    },
+    {
+      namedKey: cep === NFTStandard.CEP47 ? 'owners' : 'token_owners',
+      key: tokenId,
+      originNamedKey: 'ownerAccountHash',
+      massageFn: (value: CLAccountHash) => {
+        const hex = Buffer.from(value.data).toString('hex');
+        return hex;
+      },
     },
   ];
 };
@@ -150,7 +165,7 @@ export default class NFTServices {
   };
 
   /* Getting the token details for each token id. */
-  getNFTDetails = async (publicKey: CLPublicKey, tokenId: string) => {
+  getNFTDetails = async (tokenId: string) => {
     const { name, namedKeys, creator, action, cep, metadataKind } =
       this.NFTConfig || {};
 
@@ -163,22 +178,25 @@ export default class NFTServices {
     );
 
     const tokenDetails = await Promise.all(
-      tokenNamedKeys.map(async ({ namedKey, key }) => {
+      tokenNamedKeys.map(async ({ namedKey, key, massageFn }) => {
         const value: any = await this.contractClient.queryContractDictionary(
           namedKey,
           key,
         );
         const maybeValue = value.data;
 
-        const value1 = maybeValue?.some
-          ? maybeValue?.unwrap().data
-          : maybeValue;
-        return value1;
+        const data = maybeValue?.some ? maybeValue?.unwrap().data : maybeValue;
+        if (massageFn) {
+          return massageFn(data);
+        }
+        return data;
       }),
     );
     const details = tokenDetails.reduce(
       (out, detail, index) => {
-        const namedKey = tokenNamedKeys[index].originNamedKey;
+        const namedKey =
+          tokenNamedKeys[index].originNamedKey ||
+          tokenNamedKeys[index].namedKey;
         return {
           ...out,
           [namedKey]:
@@ -203,7 +221,6 @@ export default class NFTServices {
         contractName: name,
         contractAddress: this.nftContractHash,
         creator,
-        owner: publicKey.toHex(),
         metadata: {},
         action,
       },
@@ -212,16 +229,11 @@ export default class NFTServices {
   };
 
   /* Getting the token details for each token id. */
-  getNFTInfoByTokenId = async (
-    publicKey: CLPublicKey,
-    tokenIds: string[],
-    nftContractInfo: any,
-  ) => {
+  getNFTInfoByTokenId = async (tokenIds: string[], nftContractInfo: any) => {
     return tokenIds.length
       ? await Promise.all(
           tokenIds.map(async (tokenId) => {
             const tokenInfos = await this.getNFTDetails(
-              publicKey,
               parseInt(tokenId).toString(),
             );
             return { ...tokenInfos, ...nftContractInfo };
@@ -250,9 +262,8 @@ export default class NFTServices {
   };
 
   /* Getting the NFT details for a given token id. */
-  getMyNFTDetail = async (publicKeyHex: string, tokenId: string) => {
-    const publicKey = CLPublicKey.fromHex(publicKeyHex);
-    const detail = await this.getNFTDetails(publicKey, tokenId);
+  getMyNFTDetail = async (tokenId: string) => {
+    const detail = await this.getNFTDetails(tokenId);
     return detail;
   };
 }

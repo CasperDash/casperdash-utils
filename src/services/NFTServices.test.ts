@@ -14,7 +14,7 @@ const NFT_CONFIG = [
   // },
   {
     contractHash:
-      'hash-e1ae99ce00249f7d5977ffa315f8c4547c34fe4f76b21fd7fc452b4f02c0aa68',
+      'hash-80a7c1e6cf552d69369ed5c351e0968ef00c42f355a6a9ba50f390d28a2609c1',
     name: 'Dragon NFT',
     symbol: 'DRAG',
     creator:
@@ -28,8 +28,9 @@ const NFT_CONFIG = [
 jest.setTimeout(60 * 1000);
 test('Should call CasperServices', async () => {
   const publicKey = CLPublicKey.fromHex(
-    '0202423dfbce6d36354b3978907d4e1db377511f8fece4e5b32d9adbdb903c76914d',
+    '02021172744b5e6bdc83a591b75765712e068e5d40a3be8ae360274fb26503b4ad38',
   );
+  console.info(publicKey.toAccountHashStr());
   const NFTInfo = await Promise.all(
     NFT_CONFIG.map(async (config) => {
       const nftServices = new NFTServices(
@@ -39,7 +40,7 @@ test('Should call CasperServices', async () => {
       const nftContractInfo = await nftServices.getContractInfo();
       try {
         const tokenIds = await nftServices.getTokenIdsByPublicKey(publicKey);
-        return await nftServices.getNFTInfoByTokenId(publicKey, tokenIds, {
+        return await nftServices.getNFTInfoByTokenId(tokenIds, {
           ...nftContractInfo,
           balances: tokenIds.length,
         });

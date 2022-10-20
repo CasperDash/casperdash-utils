@@ -37,7 +37,9 @@ const metadataNamedKeyMapping = {
 };
 
 const getMetadataNamedKey = (cep: string, metadataKind?: NFTMetadataKind) => {
-  return cep === NFTStandard.CEP47 || !metadataKind
+  return cep === NFTStandard.CEP47 ||
+    metadataKind === undefined ||
+    metadataKind === null
     ? METADATA_NAMED_KEY
     : metadataNamedKeyMapping[metadataKind];
 };
@@ -233,10 +235,15 @@ export default class NFTServices {
     return tokenIds.length
       ? await Promise.all(
           tokenIds.map(async (tokenId) => {
-            const tokenInfos = await this.getNFTDetails(
-              parseInt(tokenId).toString(),
-            );
-            return { ...tokenInfos, ...nftContractInfo };
+            try {
+              const tokenInfos = await this.getNFTDetails(
+                parseInt(tokenId).toString(),
+              );
+              return { ...tokenInfos, ...nftContractInfo };
+            } catch (error) {
+              console.error(error);
+              return { ...nftContractInfo, tokenId };
+            }
           }),
         )
       : [];

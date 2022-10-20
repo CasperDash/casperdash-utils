@@ -10,9 +10,11 @@ export enum NFTStandard {
   CEP47 = 'cep-47',
 }
 
-type NamedKeyConfig = {
+export type NamedKeyConfig = {
   metadata: {
-    attributes: AttributesConfig[];
+    attributes?: AttributesConfig[];
+    isFromURI?: boolean;
+    uri: { key: string; massageFnc: (uri: string) => any };
   };
 };
 

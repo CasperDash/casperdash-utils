@@ -11,6 +11,7 @@ import {
   AttributesConfig,
   NFTMetadataKind,
   NFTStandard,
+  NamedKeyConfig,
 } from '../types/types';
 import CasperServices from './CasperServices';
 
@@ -165,6 +166,36 @@ export default class NFTServices {
       return this.getAttributeConfig(attributeConf, key, value);
     });
   };
+  getMetadataFromUri = async (metadata: any[], namedKeys?: NamedKeyConfig) => {
+    const uri = metadata.find(
+      (data) => data.key === namedKeys?.metadata.uri.key,
+    );
+
+    if (uri) {
+      return await namedKeys?.metadata?.uri?.massageFnc?.(uri.value);
+    } else {
+      throw Error('Cant find uri');
+    }
+  };
+  massageMetadata = (detail: any, namedKeys?: NamedKeyConfig) => {
+    try {
+      return Array.isArray(detail)
+        ? detail.map((value) =>
+            this.getAttributeConfig(
+              namedKeys?.metadata?.attributes,
+              value[0].data,
+              value[1].data,
+            ),
+          )
+        : this.getObjectAttributeValueConfig(
+            namedKeys?.metadata?.attributes,
+            JSON.parse(detail),
+          );
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
 
   /* Getting the token details for each token id. */
   getNFTDetails = async (tokenId: string) => {
@@ -207,18 +238,7 @@ export default class NFTServices {
           ...out,
           [namedKey]:
             namedKey === METADATA_NAMED_KEY
-              ? Array.isArray(detail)
-                ? detail.map((value) =>
-                    this.getAttributeConfig(
-                      namedKeys?.metadata.attributes,
-                      value[0].data,
-                      value[1].data,
-                    ),
-                  )
-                : this.getObjectAttributeValueConfig(
-                    namedKeys?.metadata.attributes,
-                    JSON.parse(detail),
-                  )
+              ? this.massageMetadata(detail, namedKeys)
               : detail,
         };
       },
@@ -227,10 +247,18 @@ export default class NFTServices {
         contractName: name,
         contractAddress: this.nftContractHash,
         creator,
-        metadata: {},
+        metadata: [],
         action,
       },
     );
+    if (namedKeys?.metadata.isFromURI) {
+      const metadataFromUri = await this.getMetadataFromUri(
+        details.metadata,
+        namedKeys,
+      );
+
+      details.metadata = metadataFromUri;
+    }
     return { ...details, action: this.NFTConfig.action };
   };
 

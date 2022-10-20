@@ -172,11 +172,13 @@ export default class NFTServices {
       this.NFTConfig || {};
 
     const tokenNamedKeys = getNamedKeyConfig(cep, tokenId, metadataKind).concat(
-      Object.keys(namedKeys || {}).map((namedKey) => ({
-        namedKey,
-        key: tokenId,
-        originNamedKey: namedKey,
-      })),
+      Object.keys(namedKeys || {})
+        .filter((key) => key !== 'metadata')
+        .map((namedKey) => ({
+          namedKey,
+          key: tokenId,
+          originNamedKey: namedKey,
+        })),
     );
 
     const tokenDetails = await Promise.all(
@@ -194,11 +196,13 @@ export default class NFTServices {
         return data;
       }),
     );
+
     const details = tokenDetails.reduce(
       (out, detail, index) => {
         const namedKey =
           tokenNamedKeys[index].originNamedKey ||
           tokenNamedKeys[index].namedKey;
+
         return {
           ...out,
           [namedKey]:
@@ -236,8 +240,11 @@ export default class NFTServices {
       ? await Promise.all(
           tokenIds.map(async (tokenId) => {
             try {
+              const parsedTokenId = isNaN(parseInt(tokenId))
+                ? tokenId
+                : parseInt(tokenId);
               const tokenInfos = await this.getNFTDetails(
-                parseInt(tokenId).toString(),
+                parsedTokenId.toString(),
               );
               return { ...tokenInfos, ...nftContractInfo };
             } catch (error) {

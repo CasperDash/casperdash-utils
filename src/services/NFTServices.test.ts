@@ -63,7 +63,7 @@ const NFT_CONFIG = [
 jest.setTimeout(60 * 1000);
 test('Should call CasperServices', async () => {
   const publicKey = CLPublicKey.fromHex(
-    '0160d88b3f847221f4dc6c5549dcfc26772c02f253a24de226a88b4536bc61d4ad',
+    '014bf321b71593701f351af026432298b4fb7124695cf37bad3c51c1c2f5d3a0a1',
   );
   console.info(publicKey.toAccountHashStr());
   const NFTInfo = await Promise.all(
@@ -77,10 +77,7 @@ test('Should call CasperServices', async () => {
       try {
         const tokenIds = await nftServices.getTokenIdsByPublicKey(publicKey);
         console.info('tokenIds', tokenIds);
-        return await nftServices.getNFTInfoByTokenId(tokenIds, {
-          ...nftContractInfo,
-          balances: tokenIds.length,
-        });
+        return await nftServices.getNFTByPublicKey(publicKey, nftContractInfo);
       } catch (error) {
         console.error(error);
         return null;

@@ -268,12 +268,7 @@ export default class NFTServices {
       ? await Promise.all(
           tokenIds.map(async (tokenId) => {
             try {
-              const parsedTokenId = isNaN(parseInt(tokenId))
-                ? tokenId
-                : parseInt(tokenId);
-              const tokenInfos = await this.getNFTDetails(
-                parsedTokenId.toString(),
-              );
+              const tokenInfos = await this.getNFTDetails(tokenId.toString());
               return { ...tokenInfos, ...nftContractInfo };
             } catch (error) {
               console.error(error);
@@ -307,5 +302,14 @@ export default class NFTServices {
   getMyNFTDetail = async (tokenId: string) => {
     const detail = await this.getNFTDetails(tokenId);
     return detail;
+  };
+
+  getNFTByPublicKey = async (publicKey: CLPublicKey, nftContractInfo: any) => {
+    const tokenIds = await this.getTokenIdsByPublicKey(publicKey);
+
+    return await this.getNFTInfoByTokenId(tokenIds, {
+      ...nftContractInfo,
+      balances: tokenIds.length,
+    });
   };
 }

@@ -22,12 +22,12 @@ const METADATA_NAMED_KEY = 'metadata';
 const CEP_47_NAMED_KEYS = [
   { key: 'symbol', name: 'symbol' },
   { key: 'name', name: 'name' },
-  { key: 'total_supply', name: 'total_supply' },
+  { key: 'total_supply', name: 'totalSupply' },
 ];
 const CEP_78_NAMED_KEY = [
   { key: 'collection_symbol', name: 'symbol' },
   { key: 'collection_name', name: 'name' },
-  { key: 'total_token_supply', name: 'total_supply' },
+  { key: 'total_token_supply', name: 'totalSupply' },
 ];
 
 const metadataNamedKeyMapping = {

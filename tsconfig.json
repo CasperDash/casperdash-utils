@@ -19,8 +19,14 @@
     "target": "es5",
     "lib": ["es2015", "dom"],
     "skipLibCheck": true,
-    "typeRoots": ["./src/@types", "./node_modules/@types"]
+    "typeRoots": ["packages/core/src/@types", "./node_modules/@types"]
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./test/**/*", "*/*.test.ts"]
+  "exclude": ["**/node_modules/**", "**/dist/**"],
+  "include": [
+    "docs/**/*",
+    "examples/**/*",
+    "packages/**/*",
+    "packages/**/*.ts",
+    "vitest.config.ts"
+  ]
 }

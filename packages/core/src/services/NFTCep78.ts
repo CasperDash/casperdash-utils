@@ -78,7 +78,7 @@ class CEP78Client {
 
   private options!: Cep78Options
 
-  constructor(public nodeAddress: string, public networkName: string, options?: Cep78Options) {
+  constructor(public nodeAddress: string, public networkName: string, _options?: Cep78Options) {
     this.casperClient = new CasperClient(nodeAddress);
     this.contractClient = new Contract(this.casperClient);
     this.options = this.options;

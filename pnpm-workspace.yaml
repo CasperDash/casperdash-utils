@@ -1,0 +1,7 @@
+packages:
+  - 'docs'
+  - 'packages/*'
+  - '!**/test/**'
+  - 'examples/*'
+
+link-workspace-packages: true

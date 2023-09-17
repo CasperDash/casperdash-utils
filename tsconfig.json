@@ -16,10 +16,13 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "module": "commonjs",
-    "target": "es5",
-    "lib": ["es2015", "dom"],
+    "target": "es2021",
+    "lib": ["es2021", "dom"],
     "skipLibCheck": true,
-    "typeRoots": ["packages/core/src/@types", "./node_modules/@types"]
+    "typeRoots": ["packages/contract-client/src/@types", "./node_modules/@types"],
+    "paths": {
+      "@casperdash/contract-client": ["./packages/contract-client/src"],
+    },
   },
   "exclude": ["**/node_modules/**", "**/dist/**"],
   "include": [

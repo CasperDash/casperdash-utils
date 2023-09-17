@@ -1,0 +1,31 @@
+{
+  "name": "@casperdash/cep18-client",
+  "version": "0.1.1",
+  "description": "A library for interacting with CEP-18 compliant tokens on the Casper Network",
+  "repository": {
+    "type": "git",
+    "directory": "packages/cep18-client"
+  },
+  "contributors": [
+    "dev <dev@casperdash.io>"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts",
+    "start": "pnpm build -- --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@casperdash/contract-client": "workspace:*",
+    "@ethersproject/bignumber": "^5.7.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^4.2.1",
+    "tsup": "^6.5.0"
+  }
+}

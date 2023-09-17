@@ -11,7 +11,11 @@ export enum NFTStandard {
 }
 
 export type NamedKeyConfig = {
-  metadata: {
+  namedKey?: string;
+  key?: string;
+  originNamedKey?: string;
+  massageFn?: (value: any) => any;
+  metadata?: {
     attributes?: AttributesConfig[];
     isFromURI?: boolean;
     uri: { key: string; massageFnc: (uri: string) => any };

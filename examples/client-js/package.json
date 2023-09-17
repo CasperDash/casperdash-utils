@@ -1,0 +1,17 @@
+{
+  "name": "client-js",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc"    
+  },
+  "dependencies": {
+    "@casperdash/cep78-client": "workspace:*",
+    "casper-js-sdk": "^2.15.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "ts-node": "10.9.1"
+  }
+}

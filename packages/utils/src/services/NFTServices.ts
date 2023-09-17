@@ -49,7 +49,7 @@ const getNamedKeyConfig = (
   cep: NFTStandard,
   tokenId: string,
   metadataKind?: NFTMetadataKind,
-) => {
+): NamedKeyConfig[] => {
   return [
     {
       namedKey: getMetadataNamedKey(cep, metadataKind),
@@ -168,7 +168,7 @@ export default class NFTServices {
   };
   getMetadataFromUri = async (metadata: any[], namedKeys?: NamedKeyConfig) => {
     const uri = metadata.find(
-      (data) => data.key === namedKeys?.metadata.uri.key,
+      (data) => data.key === namedKeys?.metadata?.uri.key,
     );
 
     if (uri) {
@@ -202,21 +202,23 @@ export default class NFTServices {
     const { name, namedKeys, creator, action, cep, metadataKind } =
       this.NFTConfig || {};
 
+    const newKeys =  Object.keys(namedKeys || {})
+    .filter((key) => key !== 'metadata')
+    .map((namedKey) => ({
+      namedKey,
+      key: tokenId,
+      originNamedKey: namedKey,
+    }));
+
     const tokenNamedKeys = getNamedKeyConfig(cep, tokenId, metadataKind).concat(
-      Object.keys(namedKeys || {})
-        .filter((key) => key !== 'metadata')
-        .map((namedKey) => ({
-          namedKey,
-          key: tokenId,
-          originNamedKey: namedKey,
-        })),
-    );
+      [...newKeys]
+    ).filter((namedKey) => namedKey.namedKey);
 
     const tokenDetails = await Promise.all(
       tokenNamedKeys.map(async ({ namedKey, key, massageFn }) => {
         const value: any = await this.contractClient.queryContractDictionary(
-          namedKey,
-          key,
+          namedKey!,
+          key!,
         );
         const maybeValue = value.data;
 
@@ -236,7 +238,7 @@ export default class NFTServices {
 
         return {
           ...out,
-          [namedKey]:
+          [namedKey!]:
             namedKey === METADATA_NAMED_KEY
               ? this.massageMetadata(detail, namedKeys)
               : detail,
@@ -251,7 +253,7 @@ export default class NFTServices {
         action,
       },
     );
-    if (namedKeys?.metadata.isFromURI) {
+    if (namedKeys?.metadata?.isFromURI) {
       const metadataFromUri = await this.getMetadataFromUri(
         details.metadata,
         namedKeys,

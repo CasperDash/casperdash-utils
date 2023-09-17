@@ -1,0 +1,30 @@
+{
+  "name": "@casperdash/cep47-client",
+  "version": "0.1.1",
+  "description": "Vanilla JS library for Casper",
+  "repository": {
+    "type": "git",
+    "directory": "packages/cep47-client"
+  },
+  "contributors": [
+    "dev <dev@casperdash.io>"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts",
+    "start": "pnpm build -- --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@casperdash/contract-client": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^4.2.1",
+    "tsup": "^6.5.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@casperdash/contract-client",
+  "version": "0.1.1",
+  "description": "A simple, lightweight, and extensible library for interacting with the Casper Network.",
+  "repository": {
+    "type": "git",
+    "directory": "packages/contract-client"
+  },
+  "contributors": [
+    "dev <dev@casperdash.io>"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts",
+    "start": "pnpm build -- --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^4.2.1",
+    "tsup": "^7.2.0"
+  }
+}

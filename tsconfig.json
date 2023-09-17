@@ -16,11 +16,23 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "module": "commonjs",
-    "target": "es5",
-    "lib": ["es2015", "dom"],
+    "target": "es2021",
+    "lib": ["es2021", "dom"],
     "skipLibCheck": true,
-    "typeRoots": ["./src/@types", "./node_modules/@types"]
+    "typeRoots": ["packages/contract-client/src/@types", "./node_modules/@types"],
+    "paths": {
+      "@casperdash/contract-client": ["./packages/contract-client/src"],
+      "@casperdash/cep47-client": ["./packages/cep47-client/src"],
+      "@casperdash/cep18-client": ["./packages/cep18-client/src"],
+      "@casperdash/cep78-client": ["./packages/cep78-client/src"],
+    },
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./test/**/*", "*/*.test.ts"]
+  "exclude": ["**/node_modules/**", "**/dist/**"],
+  "include": [
+    "docs/**/*",
+    "examples/**/*",
+    "packages/**/*",
+    "packages/**/*.ts",
+    "vitest.config.ts"
+  ]
 }

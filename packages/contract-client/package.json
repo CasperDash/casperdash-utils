@@ -4,10 +4,8 @@
   "description": "A simple, lightweight, and extensible library for interacting with the Casper Network.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CasperDash/useWallet.git",
-    "directory": "packages/core"
+    "directory": "packages/contract-client"
   },
-  "homepage": "https://usewallet.casperdash.io/",
   "contributors": [
     "dev <dev@casperdash.io>"
   ],

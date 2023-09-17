@@ -4,10 +4,8 @@
   "description": "Vanilla JS library for Casper",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CasperDash/useWallet.git",
-    "directory": "packages/core"
+    "directory": "packages/cep47-client"
   },
-  "homepage": "https://usewallet.casperdash.io/",
   "contributors": [
     "dev <dev@casperdash.io>"
   ],

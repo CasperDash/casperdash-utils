@@ -1,13 +1,11 @@
 {
   "name": "@casperdash/cep18-client",
   "version": "0.1.1",
-  "description": "Vanilla JS library for Casper",
+  "description": "A library for interacting with CEP-18 compliant tokens on the Casper Network",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CasperDash/useWallet.git",
-    "directory": "packages/core"
+    "directory": "packages/cep18-client"
   },
-  "homepage": "https://usewallet.casperdash.io/",
   "contributors": [
     "dev <dev@casperdash.io>"
   ],
@@ -23,6 +21,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@casperdash/contract-client": "workspace:*",
+    "@ethersproject/bignumber": "^5.7.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^4.2.1",

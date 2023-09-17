@@ -4,10 +4,8 @@
   "description": "A client for interacting with CEP-78 compliant contracts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CasperDash/useWallet.git",
-    "directory": "packages/core"
+    "directory": "packages/cep78-client"
   },
-  "homepage": "https://usewallet.casperdash.io/",
   "contributors": [
     "dev <dev@casperdash.io>"
   ],

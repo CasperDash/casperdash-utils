@@ -1,5 +1,5 @@
 {
-  "name": "casperdash-utils",
+  "name": "@casperdash/utils",
   "version": "1.0.15",
   "description": "Casperdash utils",
   "private": false,

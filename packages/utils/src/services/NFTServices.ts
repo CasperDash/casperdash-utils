@@ -54,7 +54,7 @@ const getNamedKeyConfig = (
     {
       namedKey: getMetadataNamedKey(cep, metadataKind),
       key: tokenId,
-      originNamedKey: METADATA_NAMED_KEY,
+      originNamedK1ey: METADATA_NAMED_KEY,
     },
     {
       namedKey: cep === NFTStandard.CEP47 ? 'owners' : 'token_owners',

@@ -99,7 +99,6 @@ class CEP78Client {
     return fetchWASM(this.options.transferCallWASM);
   };
   
-
   public async install(
     args: InstallArgs,
     paymentAmount: string,

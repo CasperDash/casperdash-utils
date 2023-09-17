@@ -8,8 +8,7 @@ import {
   CasperServiceByJsonRPC,
 } from "casper-js-sdk";
 
-import { Parser } from "@make-software/ces-js-parser";
-
+import { Parser } from '@make-software/ces-js-parser';
 import { CEP78_CONTRACT_PACKAGE } from "./constants";
 import { EventItem, EventParsed, CEP47Events, Transform } from "./types";
 

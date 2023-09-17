@@ -331,7 +331,7 @@ export class CEP78Contract extends Contract {
 
   public transfer(
     args: TransferArgs,
-    config: CallConfig,
+    config: CallConfig = { useSessionCode: false },
     paymentAmount: string,
     deploySender: CLPublicKey,
     keys?: Keys.AsymmetricKey[],

@@ -35,7 +35,7 @@
     "@changesets/cli": "^2.26.0",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "@vitest/coverage-c8": "^0.28.3",
+    "@vitest/coverage-v8": "^0.34.3",
     "@vitest/ui": "^0.28.4",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-typescript": "^17.0.0",

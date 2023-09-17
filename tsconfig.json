@@ -22,6 +22,9 @@
     "typeRoots": ["packages/contract-client/src/@types", "./node_modules/@types"],
     "paths": {
       "@casperdash/contract-client": ["./packages/contract-client/src"],
+      "@casperdash/cep47-client": ["./packages/cep47-client/src"],
+      "@casperdash/cep18-client": ["./packages/cep18-client/src"],
+      "@casperdash/cep78-client": ["./packages/cep78-client/src"],
     },
   },
   "exclude": ["**/node_modules/**", "**/dist/**"],

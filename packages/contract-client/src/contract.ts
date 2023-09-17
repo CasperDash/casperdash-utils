@@ -76,6 +76,10 @@ export class Contract {
       DeployUtil.standardPayment(paymentAmount)
     );
 
+    if (!signingKeys || signingKeys.length === 0) {
+      return deploy;
+    }
+
     const signedDeploy = deploy.sign(signingKeys);
 
     return signedDeploy;
@@ -121,6 +125,10 @@ export class Contract {
       ),
       DeployUtil.standardPayment(paymentAmount)
     );
+
+    if (!signingKeys || signingKeys.length === 0) {
+      return deploy;
+    }
 
     const signedDeploy = deploy.sign(signingKeys);
 

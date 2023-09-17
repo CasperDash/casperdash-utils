@@ -23,6 +23,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@casperdash/contract-client": "workspace:*"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^4.2.1",

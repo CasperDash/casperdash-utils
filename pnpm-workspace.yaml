@@ -1,5 +1,6 @@
 packages:
   - 'docs'
+  - 'packages/contract-client'
   - 'packages/*'
   - '!**/test/**'
   - 'examples/*'

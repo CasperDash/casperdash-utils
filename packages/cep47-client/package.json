@@ -1,6 +1,6 @@
 {
   "name": "@casperdash/cep47-client",
-  "version": "0.1.1",
+  "version": "0.0.1",
   "description": "Vanilla JS library for Casper",
   "repository": {
     "type": "git",
@@ -21,10 +21,11 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@casperdash/contract-client": "workspace:*"
+    "@casperdash/contract-client": "workspace:*",
+    "casper-js-sdk": "2.15.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^4.2.1",
-    "tsup": "^6.5.0"
+    "tsup": "^6.7.0"
   }
 }

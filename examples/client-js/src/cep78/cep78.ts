@@ -1,29 +1,64 @@
 import { CEP78Contract } from '@casperdash/cep78-client';
-import { CLPublicKey} from 'casper-js-sdk';
+import { CLPublicKey, Keys } from 'casper-js-sdk';
+import axios from 'axios';
+import path from 'path';
+import { DeployUtil } from 'casper-js-sdk';
+import { runDeployFlow } from '../utils/deploy';
+import TransferWasm from '../wasm/transfer_call.wasm';
 
-const transfer = () => {
+const MINTER = Keys.Ed25519.parseKeyFiles(
+  path.join(__dirname, `../keys/master_public.pem`),
+  path.join(__dirname, `../keys/master_private.pem`)
+);
+
+
+const transfer = async () => {
+  console.log('MINTER.publicKey: ', MINTER.publicKey.toHex());
+
     const cep78Contract = new CEP78Contract(
         'casper-test', 
-        'hash-c39ac4b3e174b0dc4063e3b482e8c27ffdc59c9c14591ef7c9738f0b1059a8d6',
-        'hash-5814ea56a814deb8f4057a5233788b6e87a1b6b9740ca47582772b13c147fea3'
+        'hash-ce5ab65523312ed33b9f830dee1ec78de73e561caf1a58b5642e9e6a9210c417',
         );
 
-    const clFromPublicKey = CLPublicKey.fromHex('013f2770f56d8482c6bd38d0ce28e164bbd00a6094445e406c5a0b44a19400a706');
     const clToPublicKey = CLPublicKey.fromHex('01ce62c06f9e6739d06c346cd1003ef80949a61d345c3e8293ea23e0f1d7f04035');
     
+    const registerDeployTwo = cep78Contract.register(
+      {
+        tokenOwner: clToPublicKey,
+      },
+      "1000000000",
+      MINTER.publicKey,
+      [MINTER],
+    );
+
+    console.log('TransferWasm: ', TransferWasm); 
+
     const transferDeploy = cep78Contract.transfer(
         {
-          tokenId: "0",
-          source: clFromPublicKey,
+          tokenId: "4",
+          source: MINTER.publicKey,
           target: clToPublicKey,
         },
-        { useSessionCode: false },
-        "13000000000",
-        clFromPublicKey,
+        { useSessionCode: true },
+        "20000000000",
+        MINTER.publicKey,
+        [],
+        TransferWasm
       );
+
     
-    return transferDeploy;
-    
+
+    console.log('DeployUtil.deployToJson(transferDeploy as any): ', DeployUtil.deployToJson(transferDeploy as any));
+      
+    // const response = await axios.post('http://localhost:3001/deploy', DeployUtil.deployToJson(transferDeploy as any));
+
+    // console.log('response: ', response);
+
+    // if (deploy.err) {
+    //     throw Error('Deploy failed');
+    // }
+
+    await runDeployFlow(DeployUtil.signDeploy(transferDeploy, MINTER));
 }
 
 transfer();

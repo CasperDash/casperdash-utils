@@ -1,6 +1,6 @@
 {
   "name": "@casperdash/cep18-client",
-  "version": "0.1.1",
+  "version": "0.0.1",
   "description": "A library for interacting with CEP-18 compliant tokens on the Casper Network",
   "repository": {
     "type": "git",
@@ -21,11 +21,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@ethersproject/bignumber": "^5.7.0",
     "@casperdash/contract-client": "workspace:*",
-    "@ethersproject/bignumber": "^5.7.0"
+    "casper-js-sdk": "2.15.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^4.2.1",
-    "tsup": "^6.5.0"
+    "tsup": "^6.7.0"
   }
 }

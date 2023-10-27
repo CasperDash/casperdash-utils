@@ -56,6 +56,19 @@ export class CEP78Contract extends Contract {
     contractPackageHash?: string
     ) {
     super(contractHash, contractPackageHash);
+
+    if (contractHash) {
+      this.contractHashKey = CLValueBuilder.key(
+        CLValueBuilder.byteArray(convertHashStrToHashBuff(contractHash))
+      );
+    }
+  }
+
+  public setContractHash(contractHash: string, contractPackageHash?: string | undefined): void {
+    super.setContractHash(contractHash, contractPackageHash);
+    this.contractHashKey = CLValueBuilder.key(
+      CLValueBuilder.byteArray(convertHashStrToHashBuff(contractHash))
+    );
   }
 
   public install(
@@ -268,6 +281,9 @@ export class CEP78Contract extends Contract {
       if (!args.collectionName) {
         throw new Error("Missing collectionName argument");
       }
+      if (!this.contractHashKey) {
+        throw new Error("Missing contractHashKey argument");
+      }
 
       const wasmToCall = wasm;
 
@@ -358,6 +374,9 @@ export class CEP78Contract extends Contract {
     if (config.useSessionCode) {
       if (!wasm) {
         throw new Error("Missing wasm argument");
+      }
+      if (!this.contractHashKey) {
+        throw new Error("Missing contractHashKey argument");
       }
       runtimeArgs.insert("nft_contract_hash", this.contractHashKey);
       const wasmToCall = wasm;

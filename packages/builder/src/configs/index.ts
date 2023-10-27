@@ -1,0 +1,1 @@
+export { DEFAULT_CONFIGS as CONFIGS, OWNER_KEYS } from './default';

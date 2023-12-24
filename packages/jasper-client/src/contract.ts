@@ -143,11 +143,9 @@ export type MarketGetBalanceArgs = DeployArgs;
 
 export class MarketContract extends Contract {
   constructor(
+    public networkName: string,
     public contractHash: string,
-    public contractPackageHash: string,
-    public config: {
-      chainName: string;
-    }
+    public contractPackageHash: string
   ) {
     super(contractHash, contractPackageHash);
   }
@@ -162,7 +160,7 @@ export class MarketContract extends Contract {
       'register_token',
       runtimeArgs,
       CLPublicKey.fromHex(args.fromPublicKeyHex),
-      this.config.chainName,
+      this.networkName,
       String(args.paymentAmount),
       []
     );
@@ -231,7 +229,7 @@ export class MarketContract extends Contract {
       runtimeArgs,
       String(args.paymentAmount),
       CLPublicKey.fromHex(args.fromPublicKeyHex),
-      this.config.chainName,
+      this.networkName,
       []
     );
   }
@@ -246,7 +244,7 @@ export class MarketContract extends Contract {
       'cancel_item',
       runtimeArgs,
       CLPublicKey.fromHex(args.fromPublicKeyHex),
-      this.config.chainName,
+      this.networkName,
       String(args.paymentAmount),
       []
     );
@@ -265,7 +263,7 @@ export class MarketContract extends Contract {
       runtimeArgs,
       String(args.paymentAmount),
       CLPublicKey.fromHex(args.fromPublicKeyHex),
-      this.config.chainName,
+      this.networkName,
       []
     );
   }

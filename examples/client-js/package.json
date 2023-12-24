@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@casperdash/cep78-client": "workspace:*",
+    "@casperdash/jasper-client": "workspace:*",
     "casper-js-sdk": "^2.15.2"
   },
   "devDependencies": {

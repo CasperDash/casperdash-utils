@@ -1,5 +1,5 @@
 {
-  "name": "@casperdash/market-client",
+  "name": "@casperdash/jasper-client",
   "version": "0.0.1",
   "description": "A client for interacting with the CasperDash Market contract",
   "repository": {

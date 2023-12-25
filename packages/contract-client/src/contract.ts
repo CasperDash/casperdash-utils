@@ -4,6 +4,7 @@ import {
     Keys,
     RuntimeArgs,
 } from 'casper-js-sdk';
+import { Buffer } from 'buffer/';
 
 export const DEFAULT_DEPLOY_TTL = 1800000;
 

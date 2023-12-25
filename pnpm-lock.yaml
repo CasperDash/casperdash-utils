@@ -169,6 +169,9 @@ importers:
       '@casperdash/contract-client':
         specifier: workspace:*
         version: link:../contract-client
+      '@ethersproject/bignumber':
+        specifier: ^5.7.0
+        version: 5.7.0
       '@noble/hashes':
         specifier: 1.1.2
         version: 1.1.2

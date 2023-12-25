@@ -21,6 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "@casperdash/contract-client": "workspace:*",
+    "@ethersproject/bignumber": "^5.7.0",
     "casper-js-sdk": "^2.15.3",
     "@noble/hashes": "1.1.2",
     "buffer": "^6.0.3"
